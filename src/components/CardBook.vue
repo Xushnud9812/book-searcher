@@ -3,6 +3,10 @@ defineProps({
   book: {
     type: Object,
     required: true
+  },
+  bookId: {
+    type: String,
+    required: true
   }
 })
 </script>
@@ -25,7 +29,8 @@ defineProps({
         </div>
         <div class="flex justify-between items-center">
           <span class="font-semibold">Pages: {{ book.pageCount }}</span>
-          <router-link class="bg-primary text-sm py-1 px-2 rounded text-white" to="/">Read More</router-link>
+          <router-link class="bg-primary text-sm py-1 px-2 rounded text-white"
+            :to="{ name: 'book-details', params: { id: bookId } }">Read More</router-link>
         </div>
       </div>
     </div>

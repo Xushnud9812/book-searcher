@@ -1,8 +1,12 @@
-<script setup></script>
+<script setup>
+import { useRouter, useRoute } from 'vue-router'
+
+const route = useRoute()
+</script>
 
 <template>
   <div>
-    <router-view />
+    <router-view :key="route.fullPath" />
   </div>
 </template>
 

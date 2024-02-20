@@ -12,18 +12,23 @@ const route = useRoute();
 
 const loading = ref(false)
 const books = ref([])
+
 const search = useDebouncedRef('', 1000)
 
+if (route.query.q) {
+  search.value = route.query.q
+}
+
 const fetchData = async () => {
-  if (search.value === '') {
+  const text = route.query.q;
+  if (!text) {
     books.value = []
     return
   };
   try {
     loading.value = true
-    const response = await axios.get(`/volumes?q=${search.value}`);
+    const response = await axios.get(`/volumes?q=${text}`);
     books.value = response.data.items ? response.data.items : []
-
   } catch (error) {
     console.error('Error :', error);
   }
@@ -32,9 +37,10 @@ const fetchData = async () => {
   }
 };
 
+fetchData()
+
 watch(search, () => {
   router.push({ query: { q: search.value } })
-  fetchData()
 })
 
 
@@ -42,7 +48,7 @@ watch(search, () => {
 
 <template>
   <div>
-    <div class="bg-white py-5 fixed top-0 w-full">
+    <div class="bg-white shadow-md py-5 fixed top-0 w-full">
       <div class="container">
         <input type="text" v-model="search" placeholder="Search..."
           class="px-4 py-3 w-full rounded border border-[#E0E7FF] bg-gray-100 focus:border-primary focus:outline-none">
@@ -56,7 +62,7 @@ watch(search, () => {
         <h1>No results</h1>
       </div>
       <div v-show="!loading" class="my-10 grid grid-cols-4 gap-5">
-        <card-book v-for="book, index in books" :book="book.volumeInfo" :key="index" />
+        <card-book v-for="book, index in books" :book="book.volumeInfo" :book-id="book.id" :key="index" />
 
       </div>
 
