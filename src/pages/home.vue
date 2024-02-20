@@ -61,7 +61,7 @@ watch(search, () => {
       <div v-show="books.length === 0 && !loading" class="py-8 text-center">
         <h1>No results</h1>
       </div>
-      <div v-show="!loading" class="my-10 grid grid-cols-4 gap-5">
+      <div v-show="!loading" class="my-10 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
         <card-book v-for="book, index in books" :book="book.volumeInfo" :book-id="book.id" :key="index" />
 
       </div>

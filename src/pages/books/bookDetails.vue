@@ -43,9 +43,9 @@ getByIdBook(route.params.id)
       <div v-show="loading" class="flex justify-center my-20">
         <loader />
       </div>
-      <div v-show="!loading" class="flex gap-10">
+      <div v-show="!loading" class="flex flex-col md:flex-row gap-10">
         <div class="shrink-0">
-          <img class="2xl:w-96" :src="book.imageLinks?.thumbnail" alt="">
+          <img class="mx-auto md:mx-0 2xl:w-96" :src="book.imageLinks?.thumbnail" alt="">
         </div>
         <div>
           <h1 class="2xl:text-4xl text-primary font-semibold">{{ book.title }}</h1>

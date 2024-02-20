@@ -36,12 +36,12 @@ const login = () => {
 
 <template>
   <div class="h-screen flex flex-col items-center justify-center">
-    <div class="w-[500px]">
+    <div class="w-full md:w-[500px]">
       <div class="bg-white rounded-lg p-8">
         <h1 class="mb-10 font-bold text-2xl text-[#28293D]">Login</h1>
         <form @submit.prevent="login" class="flex flex-col gap-6">
           <div>
-            <h2 class="text-xs font-medium  mb-2">Username </h2>
+            <h2 class="text-xl font-medium  mb-2">Username </h2>
             <input @input="handleInput"
               class="px-4 py-3 w-full rounded border border-[#E0E7FF] bg-[#E0E7FF33] focus:border-primary focus:outline-none"
               placeholder="Username" required v-model="formData.username" type="text" />
@@ -50,7 +50,7 @@ const login = () => {
             characters, nor numbers or cyrillic
             symbols</h2>
           <div>
-            <h2 class="text-xs font-medium  mb-2">Token </h2>
+            <h2 class="text-xl font-medium  mb-2">Token </h2>
             <input
               class="px-4 py-3 w-full rounded border border-[#E0E7FF] bg-[#E0E7FF33] focus:border-primary focus:outline-none"
               placeholder="Token" type="text" required v-model="formData.token" />
