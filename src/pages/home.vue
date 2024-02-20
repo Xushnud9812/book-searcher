@@ -12,6 +12,7 @@ const route = useRoute();
 
 const loading = ref(false)
 const books = ref([])
+const totalBooks = ref()
 
 const search = useDebouncedRef('', 1000)
 
@@ -27,8 +28,9 @@ const fetchData = async () => {
   };
   try {
     loading.value = true
-    const response = await axios.get(`/volumes?q=${text}`);
-    books.value = response.data.items ? response.data.items : []
+    const res = await axios.get(`/volumes?q=${text}`);
+    books.value = res.data.items ? res.data.items : []
+    totalBooks.value = res.data.totalItems
   } catch (error) {
     console.error('Error :', error);
   }
@@ -54,13 +56,14 @@ watch(search, () => {
           class="px-4 py-3 w-full rounded border border-[#E0E7FF] bg-gray-100 focus:border-primary focus:outline-none">
       </div>
     </div>
-    <div class="pt-20 container">
+    <div class="pt-28 container">
       <div v-show="loading" class="flex justify-center my-20">
         <loader />
       </div>
       <div v-show="books.length === 0 && !loading" class="py-8 text-center">
         <h1>No results</h1>
       </div>
+      <h2>Total Books : {{ totalBooks }}</h2>
       <div v-show="!loading" class="my-10 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
         <card-book v-for="book, index in books" :book="book.volumeInfo" :book-id="book.id" :key="index" />
 
